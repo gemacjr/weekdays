@@ -12,42 +12,47 @@ import {
   View
 } from 'react-native';
 
+import DayItem from "./src/dayitem"
+import Moment from "moment"
+
+var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 export default class weekdays extends Component {
+
+
+  days(){
+    var daysItems = [];
+
+    for(var i = 0; i < 7; i++){
+      var day = Moment().add(i, 'days').format('dddd');
+      daysItems.push(
+        <DayItem day={day} daysUntil={i} />
+      )
+    }
+
+    return daysItems
+
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        {this.days()}
       </View>
+
     );
   }
+
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'center', // Moves stuff height wise
+    alignItems: 'center',  // Moves stuff width wise
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
 
 AppRegistry.registerComponent('weekdays', () => weekdays);
